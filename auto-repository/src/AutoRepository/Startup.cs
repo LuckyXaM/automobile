@@ -26,7 +26,6 @@ namespace AutoRepository
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             var dbConnectionString = Configuration["DbConnectionString"] ?? Configuration.GetConnectionString("DefaultConnection");
-
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<AutoRepositoryContext>(options =>
                 {
@@ -41,14 +40,13 @@ namespace AutoRepository
                         });
                 }, ServiceLifetime.Scoped);
             
-            //services.AddScoped<IUnitOfWork, AutoRepositoryContext>();
             services.AddScoped<IAutomobileRepository, AutomobileRepository>();
             services.AddScoped<IAutomobileHandler, AutomobileHandler>();
 
             services.AddMvcCore()
                 .AddApiExplorer()
                 .AddJsonFormatters();
-            
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("automobile", new Info { Title = "Работа с автомобилями", Version = "automobile" });

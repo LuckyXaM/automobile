@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+
+  auto-repository:
+    image: auto/repository
+    build:
+      context: ./auto-repository/src/AutoRepository
+      dockerfile: Dockerfile
+    depends_on:
+      - repository.sql.data
+
+
+  repository.sql.data:
+    image: postgres
