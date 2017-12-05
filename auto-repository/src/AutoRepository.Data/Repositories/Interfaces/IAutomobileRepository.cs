@@ -1,4 +1,5 @@
-﻿using AutoRepository.Data.Models;
+﻿using AutoRepository.Data.Infrastructure;
+using AutoRepository.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -65,5 +66,10 @@ namespace AutoRepository.Data.Repositories.Interfaces
         /// </summary>
         /// <returns></returns>
         Task<List<Car>> GetCarsAsync();
+
+        /// <summary>
+        /// Интерфейс для сохранения данных
+        /// </summary>
+        IUnitOfWork UnitOfWork { get; }
     }
 }

@@ -11,7 +11,7 @@ using System;
 namespace AutoRepository.Migrations
 {
     [DbContext(typeof(AutoRepositoryContext))]
-    [Migration("20171204170545_init")]
+    [Migration("20171205091451_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace AutoRepository.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn)
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
+                .HasAnnotation("ProductVersion", "2.0.1-rtm-125");
 
             modelBuilder.Entity("AutoRepository.Data.Models.Brand", b =>
                 {

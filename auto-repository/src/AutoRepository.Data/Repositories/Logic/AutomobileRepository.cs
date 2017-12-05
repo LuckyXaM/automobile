@@ -1,4 +1,5 @@
-﻿using AutoRepository.Data.Models;
+﻿using AutoRepository.Data.Infrastructure;
+using AutoRepository.Data.Models;
 using AutoRepository.Data.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -12,9 +13,20 @@ namespace AutoRepository.Data.Repositories.Logic
     /// </summary>
     public class AutomobileRepository : IAutomobileRepository
     {
-        #region Поля
+        #region Свойства
         
         private AutoRepositoryContext _autoRepositoryContext;
+
+        /// <summary>
+        /// Интерфейс для сохранения данных
+        /// </summary>
+        public IUnitOfWork UnitOfWork
+        {
+            get
+            {
+                return _autoRepositoryContext;
+            }
+        }
 
         #endregion Конструктор
 

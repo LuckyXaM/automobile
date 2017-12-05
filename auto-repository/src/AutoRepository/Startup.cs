@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using AutoRepository.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
-using AutoRepository.Data.Infrastructure;
 using AutoRepository.Data.Repositories.Interfaces;
 using AutoRepository.Data.Repositories.Logic;
 using AutoRepository.Services.Services.Interfaces;
@@ -42,7 +41,7 @@ namespace AutoRepository
                         });
                 }, ServiceLifetime.Scoped);
             
-            services.AddScoped<IUnitOfWork, AutoRepositoryContext>();
+            //services.AddScoped<IUnitOfWork, AutoRepositoryContext>();
             services.AddScoped<IAutomobileRepository, AutomobileRepository>();
             services.AddScoped<IAutomobileHandler, AutomobileHandler>();
 

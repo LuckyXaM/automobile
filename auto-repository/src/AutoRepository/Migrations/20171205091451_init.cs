@@ -12,8 +12,8 @@ namespace AutoRepository.Migrations
                 name: "Brands",
                 columns: table => new
                 {
-                    BrandId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false)
+                    BrandId = table.Column<Guid>(nullable: false),
+                    Title = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -24,9 +24,9 @@ namespace AutoRepository.Migrations
                 name: "Cars",
                 columns: table => new
                 {
-                    CarId = table.Column<Guid>(type: "uuid", nullable: false),
-                    BrandId = table.Column<Guid>(type: "uuid", nullable: false),
-                    Title = table.Column<string>(type: "text", nullable: false)
+                    CarId = table.Column<Guid>(nullable: false),
+                    BrandId = table.Column<Guid>(nullable: false),
+                    Title = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {

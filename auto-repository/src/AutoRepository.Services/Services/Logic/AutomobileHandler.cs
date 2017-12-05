@@ -1,5 +1,4 @@
-﻿using AutoRepository.Data.Infrastructure;
-using AutoRepository.Data.Models;
+﻿using AutoRepository.Data.Models;
 using AutoRepository.Data.Repositories.Interfaces;
 using AutoRepository.Services.Services.Interfaces;
 using System;
@@ -16,7 +15,6 @@ namespace AutoRepository.Services.Services.Logic
         #region Свойства
 
         private readonly IAutomobileRepository _automobileRepository;
-        private readonly IUnitOfWork _unitOfWork;
 
         #endregion
 
@@ -26,12 +24,10 @@ namespace AutoRepository.Services.Services.Logic
         /// Конструктор по-умолчанию
         /// </summary>
         public AutomobileHandler(
-            IAutomobileRepository automobileRepository,
-            IUnitOfWork unitOfWork
+            IAutomobileRepository automobileRepository
             )
         {
             _automobileRepository = automobileRepository;
-            _unitOfWork = unitOfWork;
         }
 
         #endregion
@@ -49,7 +45,7 @@ namespace AutoRepository.Services.Services.Logic
             };
 
             _automobileRepository.CreateBrand(brand);
-            await _unitOfWork.SaveChangesAsync();
+            await _automobileRepository.UnitOfWork.SaveChangesAsync();
         }
 
         /// <summary>
@@ -63,7 +59,7 @@ namespace AutoRepository.Services.Services.Logic
             };
 
             _automobileRepository.DeleteBrand(brand);
-            await _unitOfWork.SaveChangesAsync();
+            await _automobileRepository.UnitOfWork.SaveChangesAsync();
         }
 
         /// <summary>
@@ -78,7 +74,7 @@ namespace AutoRepository.Services.Services.Logic
             };
 
             _automobileRepository.UpdateBrand(brand);
-            await _unitOfWork.SaveChangesAsync();
+            await _automobileRepository.UnitOfWork.SaveChangesAsync();
         }
 
         /// <summary>
@@ -115,7 +111,7 @@ namespace AutoRepository.Services.Services.Logic
             };
 
             _automobileRepository.CreateCar(car);
-            await _unitOfWork.SaveChangesAsync();
+            await _automobileRepository.UnitOfWork.SaveChangesAsync();
         }
 
         /// <summary>
@@ -129,7 +125,7 @@ namespace AutoRepository.Services.Services.Logic
             };
 
             _automobileRepository.DeleteCar(car);
-            await _unitOfWork.SaveChangesAsync();
+            await _automobileRepository.UnitOfWork.SaveChangesAsync();
         }
 
         /// <summary>
@@ -144,7 +140,7 @@ namespace AutoRepository.Services.Services.Logic
             };
 
             _automobileRepository.UpdateCar(car);
-            await _unitOfWork.SaveChangesAsync();
+            await _automobileRepository.UnitOfWork.SaveChangesAsync();
         }
 
         /// <summary>
