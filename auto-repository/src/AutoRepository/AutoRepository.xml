@@ -50,11 +50,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AutoRepository.Controllers.AutomobileController.CreateCarAsync(System.String)">
+        <member name="M:AutoRepository.Controllers.AutomobileController.CreateCarAsync(System.String,System.Guid)">
             <summary>
             Добавляет автомобиль
             </summary>
             <param name="title"></param>
+            <param name="brandId"></param>
             <returns></returns>
         </member>
         <member name="M:AutoRepository.Controllers.AutomobileController.DeleteCarAsync(System.Guid)">

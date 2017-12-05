@@ -9,7 +9,7 @@ namespace AutoRepository.Data.Models
     public class Brand
     {
         /// <summary>
-        /// Id Бренда
+        /// Id бренда
         /// </summary>
         [Key]
         public Guid BrandId { get; set; }

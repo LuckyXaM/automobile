@@ -41,7 +41,7 @@ namespace AutoRepository.Services.Services.Interfaces
         /// <summary>
         /// Добавляет автомобиль
         /// </summary>
-        Task CreateCarAsync(string title);
+        Task CreateCarAsync(string title, Guid brandId);
 
         /// <summary>
         /// Удаляет автомобиль

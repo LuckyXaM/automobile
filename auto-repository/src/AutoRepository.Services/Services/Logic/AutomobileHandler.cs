@@ -39,13 +39,18 @@ namespace AutoRepository.Services.Services.Logic
         /// </summary>
         public async Task CreateBrandAsync(string title)
         {
-            var brand = new Brand
-            {
-                Title = title
-            };
+            var mark = await _automobileRepository.GetBrandAsync(title);
 
-            _automobileRepository.CreateBrand(brand);
-            await _automobileRepository.UnitOfWork.SaveChangesAsync();
+            if (mark == null)
+            {
+                var brand = new Brand
+                {
+                    Title = title
+                };
+
+                _automobileRepository.CreateBrand(brand);
+                await _automobileRepository.UnitOfWork.SaveChangesAsync();
+            }
         }
 
         /// <summary>
@@ -103,15 +108,22 @@ namespace AutoRepository.Services.Services.Logic
         /// <summary>
         /// Добавляет автомобиль
         /// </summary>
-        public async Task CreateCarAsync(string title)
+        public async Task CreateCarAsync(string title, Guid brandId)
         {
-            var car = new Car
-            {
-                Title = title
-            };
+            var auto = await _automobileRepository.GetCarAsync(title, brandId);
 
-            _automobileRepository.CreateCar(car);
-            await _automobileRepository.UnitOfWork.SaveChangesAsync();
+            if (auto == null)
+            {
+
+                var car = new Car
+                {
+                    Title = title,
+                    BrandId = brandId
+                };
+
+                _automobileRepository.CreateCar(car);
+                await _automobileRepository.UnitOfWork.SaveChangesAsync();
+            }
         }
 
         /// <summary>
@@ -133,11 +145,8 @@ namespace AutoRepository.Services.Services.Logic
         /// </summary>
         public async Task UpdateCarAsync(Guid carId, string title)
         {
-            var car = new Car
-            {
-                CarId = carId,
-                Title = title
-            };
+            var car = await _automobileRepository.GetCarAsync(carId);
+            car.Title = title;
 
             _automobileRepository.UpdateCar(car);
             await _automobileRepository.UnitOfWork.SaveChangesAsync();

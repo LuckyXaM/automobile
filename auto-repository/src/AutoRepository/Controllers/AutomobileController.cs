@@ -2,6 +2,8 @@
 using AutoRepository.Services.Services.Interfaces;
 using System.Threading.Tasks;
 using System;
+using AutoRepository.Data.Models;
+using System.Collections.Generic;
 
 namespace AutoRepository.Controllers
 {
@@ -33,7 +35,7 @@ namespace AutoRepository.Controllers
 
         #endregion
 
-        #region Методы
+        #region Методы(API)
 
         /// <summary>
         /// Добавляет бренд
@@ -75,9 +77,11 @@ namespace AutoRepository.Controllers
         /// <param name="brandId"></param>
         /// <returns></returns>
         [HttpGet("getbrand/{brandId}")]
-        public async Task GetBrandAsync(Guid brandId)
+        public async Task<Brand> GetBrandAsync(Guid brandId)
         {
-            await _automobileHandler.GetBrandAsync(brandId);
+            var result = await _automobileHandler.GetBrandAsync(brandId);
+
+            return result;
         }
 
         /// <summary>
@@ -85,20 +89,23 @@ namespace AutoRepository.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("getbrands")]
-        public async Task GetBrandsAsync()
+        public async Task<List<Brand>> GetBrandsAsync()
         {
-            await _automobileHandler.GetBrandsAsync();
+            var result = await _automobileHandler.GetBrandsAsync();
+
+            return result;
         }
 
         /// <summary>
         /// Добавляет автомобиль
         /// </summary>
         /// <param name="title"></param>
+        /// <param name="brandId"></param>
         /// <returns></returns>
-        [HttpPost("createcar/{title}")]
-        public async Task CreateCarAsync(string title)
+        [HttpPost("createcar/{title}/{brandId}")]
+        public async Task CreateCarAsync(string title, Guid brandId)
         {
-            await _automobileHandler.CreateCarAsync(title);
+            await _automobileHandler.CreateCarAsync(title, brandId);
         }
 
         /// <summary>
@@ -130,9 +137,11 @@ namespace AutoRepository.Controllers
         /// <param name="carId"></param>
         /// <returns></returns>
         [HttpGet("getcar/{carId}")]
-        public async Task GetCarAsync(Guid carId)
+        public async Task<Car> GetCarAsync(Guid carId)
         {
-            await _automobileHandler.GetCarAsync(carId);
+            var result = await _automobileHandler.GetCarAsync(carId);
+
+            return result;
         }
 
         /// <summary>
@@ -140,9 +149,11 @@ namespace AutoRepository.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("getcars")]
-        public async Task GetCarsAsync()
+        public async Task<List<Car>> GetCarsAsync()
         {
-            await _automobileHandler.GetCarsAsync();
+            var result = await _automobileHandler.GetCarsAsync();
+
+            return result;
         }
 
         #endregion

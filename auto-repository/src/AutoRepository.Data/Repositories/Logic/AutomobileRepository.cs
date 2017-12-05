@@ -14,7 +14,7 @@ namespace AutoRepository.Data.Repositories.Logic
     public class AutomobileRepository : IAutomobileRepository
     {
         #region Свойства
-        
+
         private AutoRepositoryContext _autoRepositoryContext;
 
         /// <summary>
@@ -84,6 +84,18 @@ namespace AutoRepository.Data.Repositories.Logic
         }
 
         /// <summary>
+        /// Возвращает бренд по названию
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        public async Task<Brand> GetBrandAsync(string title)
+        {
+            var result = await _autoRepositoryContext.Brands.FirstOrDefaultAsync(b => b.Title == title);
+
+            return result;
+        }
+
+        /// <summary>
         /// Возвращает список брендов
         /// </summary>
         /// <returns></returns>
@@ -93,15 +105,12 @@ namespace AutoRepository.Data.Repositories.Logic
 
             return result;
         }
-        
+
         /// <summary>
         /// Добавляет автомобиль
         /// </summary>
         public void CreateCar(Car car)
         {
-            //var brand = new Brand {
-            //    Title = title
-            //};
             _autoRepositoryContext.Cars.Add(car);
         }
 
@@ -134,12 +143,26 @@ namespace AutoRepository.Data.Repositories.Logic
         }
 
         /// <summary>
+        /// Возвращает автомобиль по названию и бренду
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="brandId"></param>
+        /// <returns></returns>
+        public async Task<Car> GetCarAsync(string title, Guid brandId)
+        {
+            var result = await _autoRepositoryContext.Cars.FirstOrDefaultAsync(b => b.Title == title && b.BrandId == brandId);
+
+            return result;
+        }
+
+        /// <summary>
         /// Возвращает список автомобилей
         /// </summary>
         /// <returns></returns>
         public async Task<List<Car>> GetCarsAsync()
         {
-            var result = await _autoRepositoryContext.Cars.ToListAsync();
+            var result = await _autoRepositoryContext.Cars.Include(c => c.Brand)
+                .ToListAsync();
 
             return result;
         }

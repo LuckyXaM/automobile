@@ -34,6 +34,13 @@ namespace AutoRepository.Data.Repositories.Interfaces
         Task<Brand> GetBrandAsync(Guid brandId);
 
         /// <summary>
+        /// Возвращает бренд по названию
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
+        Task<Brand> GetBrandAsync(string title);
+
+        /// <summary>
         /// Возвращает список брендов
         /// </summary>
         /// <returns></returns>
@@ -60,6 +67,14 @@ namespace AutoRepository.Data.Repositories.Interfaces
         /// <param name="carId"></param>
         /// <returns></returns>
         Task<Car> GetCarAsync(Guid carId);
+
+        /// <summary>
+        /// Возвращает автомобиль по названию и бренду
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="brandId"></param>
+        /// <returns></returns>
+        Task<Car> GetCarAsync(string title, Guid brandId);
 
         /// <summary>
         /// Возвращает список автомобилей

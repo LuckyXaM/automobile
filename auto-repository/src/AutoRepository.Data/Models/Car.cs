@@ -9,7 +9,7 @@ namespace AutoRepository.Data.Models
     public class Car
     {
         /// <summary>
-        /// Id Автомобиля
+        /// Id автомобиля
         /// </summary>
         [Key]
         public Guid CarId { get; set; }
@@ -23,7 +23,9 @@ namespace AutoRepository.Data.Models
         /// <summary>
         /// Бренд автомобиля
         /// </summary>
+        public virtual Brand Brand { get; set; }
+
         [Required]
-        public Brand Brand { get; set; }
+        public Guid BrandId { get; set; }
     }
 }

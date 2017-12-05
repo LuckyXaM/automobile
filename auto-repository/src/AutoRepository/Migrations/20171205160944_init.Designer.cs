@@ -11,7 +11,7 @@ using System;
 namespace AutoRepository.Migrations
 {
     [DbContext(typeof(AutoRepositoryContext))]
-    [Migration("20171205091451_init")]
+    [Migration("20171205160944_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
