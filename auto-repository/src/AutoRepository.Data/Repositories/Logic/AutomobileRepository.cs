@@ -49,16 +49,15 @@ namespace AutoRepository.Data.Repositories.Logic
         /// <summary>
         /// Добавляет бренд
         /// </summary>
-        public void CreateBrand(Brand brand)
+        public void AddBrand(Brand brand)
         {
             _autoRepositoryContext.Brands.Add(brand);
-            _autoRepositoryContext.SaveChanges();
         }
 
         /// <summary>
         /// Удаляет бренд
         /// </summary>
-        public void DeleteBrand(Brand brand)
+        public void RemoveBrand(Brand brand)
         {
             _autoRepositoryContext.Brands.Remove(brand);
         }
@@ -74,11 +73,11 @@ namespace AutoRepository.Data.Repositories.Logic
         /// <summary>
         /// Возаращает бренд по Id
         /// </summary>
-        /// <param name="brandId"></param>
         /// <returns></returns>
         public async Task<Brand> GetBrandAsync(Guid brandId)
         {
-            var result = await _autoRepositoryContext.Brands.FirstOrDefaultAsync(b => b.BrandId == brandId);
+            var result = await _autoRepositoryContext.Brands.AsNoTracking()
+                .FirstOrDefaultAsync(b => b.BrandId == brandId);
 
             return result;
         }
@@ -86,11 +85,11 @@ namespace AutoRepository.Data.Repositories.Logic
         /// <summary>
         /// Возвращает бренд по названию
         /// </summary>
-        /// <param name="title"></param>
         /// <returns></returns>
         public async Task<Brand> GetBrandAsync(string title)
         {
-            var result = await _autoRepositoryContext.Brands.FirstOrDefaultAsync(b => b.Title == title);
+            var result = await _autoRepositoryContext.Brands.AsNoTracking()
+                .FirstOrDefaultAsync(b => b.Title == title);
 
             return result;
         }
@@ -101,7 +100,8 @@ namespace AutoRepository.Data.Repositories.Logic
         /// <returns></returns>
         public async Task<List<Brand>> GetBrandsAsync()
         {
-            var result = await _autoRepositoryContext.Brands.ToListAsync();
+            var result = await _autoRepositoryContext.Brands.AsNoTracking()
+                .ToListAsync();
 
             return result;
         }
@@ -109,7 +109,7 @@ namespace AutoRepository.Data.Repositories.Logic
         /// <summary>
         /// Добавляет автомобиль
         /// </summary>
-        public void CreateCar(Car car)
+        public void AddCar(Car car)
         {
             _autoRepositoryContext.Cars.Add(car);
         }
@@ -117,7 +117,7 @@ namespace AutoRepository.Data.Repositories.Logic
         /// <summary>
         /// Удаляет автомобиль
         /// </summary>
-        public void DeleteCar(Car car)
+        public void RemoveCar(Car car)
         {
             _autoRepositoryContext.Cars.Remove(car);
         }
@@ -133,11 +133,12 @@ namespace AutoRepository.Data.Repositories.Logic
         /// <summary>
         /// Возаращает автомобиль по Id
         /// </summary>
-        /// <param name="carId"></param>
         /// <returns></returns>
         public async Task<Car> GetCarAsync(Guid carId)
         {
-            var result = await _autoRepositoryContext.Cars.FirstOrDefaultAsync(b => b.CarId == carId);
+            var result = await _autoRepositoryContext.Cars.AsNoTracking()
+                .Include(c => c.Brand)
+                .FirstOrDefaultAsync(b => b.CarId == carId);
 
             return result;
         }
@@ -145,12 +146,12 @@ namespace AutoRepository.Data.Repositories.Logic
         /// <summary>
         /// Возвращает автомобиль по названию и бренду
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="brandId"></param>
         /// <returns></returns>
         public async Task<Car> GetCarAsync(string title, Guid brandId)
         {
-            var result = await _autoRepositoryContext.Cars.FirstOrDefaultAsync(b => b.Title == title && b.BrandId == brandId);
+            var result = await _autoRepositoryContext.Cars.AsNoTracking()
+                .Include(c => c.Brand)
+                .FirstOrDefaultAsync(b => b.Title == title && b.BrandId == brandId);
 
             return result;
         }
@@ -161,7 +162,8 @@ namespace AutoRepository.Data.Repositories.Logic
         /// <returns></returns>
         public async Task<List<Car>> GetCarsAsync()
         {
-            var result = await _autoRepositoryContext.Cars.Include(c => c.Brand)
+            var result = await _autoRepositoryContext.Cars.AsNoTracking()
+                .Include(c => c.Brand)
                 .ToListAsync();
 
             return result;

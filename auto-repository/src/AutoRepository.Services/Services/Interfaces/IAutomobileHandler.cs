@@ -13,12 +13,12 @@ namespace AutoRepository.Services.Services.Interfaces
         /// <summary>
         /// Добавляет бренд
         /// </summary>
-        Task CreateBrandAsync(string title);
+        Task AddBrandAsync(string title);
 
         /// <summary>
         /// Удаляет бренд
         /// </summary>
-        Task DeleteBrandAsync(Guid brandId);
+        Task RemoveBrandAsync(Guid brandId);
 
         /// <summary>
         /// Изменяет бренд
@@ -41,12 +41,12 @@ namespace AutoRepository.Services.Services.Interfaces
         /// <summary>
         /// Добавляет автомобиль
         /// </summary>
-        Task CreateCarAsync(string title, Guid brandId);
+        Task AddCarAsync(string title, Guid brandId);
 
         /// <summary>
         /// Удаляет автомобиль
         /// </summary>
-        Task DeleteCarAsync(Guid carId);
+        Task RemoveCarAsync(Guid carId);
 
         /// <summary>
         /// Изменяет автомобиль

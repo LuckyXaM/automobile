@@ -45,7 +45,7 @@ namespace AutoRepository.Controllers
         [HttpPost("createbrand/{title}")]
         public async Task CreateBrandAsync(string title)
         {
-            await _automobileHandler.CreateBrandAsync(title);
+            await _automobileHandler.AddBrandAsync(title);
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace AutoRepository.Controllers
         [HttpPost("deletebrand/{brandId}")]
         public async Task DeleteBrandAsync(Guid brandId)
         {
-            await _automobileHandler.DeleteBrandAsync(brandId);
+            await _automobileHandler.RemoveBrandAsync(brandId);
         }
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace AutoRepository.Controllers
         [HttpPost("createcar/{title}/{brandId}")]
         public async Task CreateCarAsync(string title, Guid brandId)
         {
-            await _automobileHandler.CreateCarAsync(title, brandId);
+            await _automobileHandler.AddCarAsync(title, brandId);
         }
 
         /// <summary>
@@ -116,7 +116,7 @@ namespace AutoRepository.Controllers
         [HttpPost("deletecar/{carId}")]
         public async Task DeleteCarAsync(Guid carId)
         {
-            await _automobileHandler.DeleteCarAsync(carId);
+            await _automobileHandler.RemoveCarAsync(carId);
         }
 
         /// <summary>

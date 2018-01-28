@@ -13,3 +13,8 @@ services:
 
   repository.sql.data:
     image: postgres
+
+  redis.cache:
+    image: redis
+    ports:
+      - "6379:6379"

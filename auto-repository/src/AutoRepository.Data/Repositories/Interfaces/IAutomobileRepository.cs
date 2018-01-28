@@ -14,12 +14,12 @@ namespace AutoRepository.Data.Repositories.Interfaces
         /// <summary>
         /// Добавляет бренд
         /// </summary>
-        void CreateBrand(Brand brand);
+        void AddBrand(Brand brand);
 
         /// <summary>
         /// Удаляет бренд
         /// </summary>
-        void DeleteBrand(Brand brand);
+        void RemoveBrand(Brand brand);
 
         /// <summary>
         /// Изменяет бренд
@@ -36,7 +36,6 @@ namespace AutoRepository.Data.Repositories.Interfaces
         /// <summary>
         /// Возвращает бренд по названию
         /// </summary>
-        /// <param name="title"></param>
         /// <returns></returns>
         Task<Brand> GetBrandAsync(string title);
 
@@ -49,12 +48,12 @@ namespace AutoRepository.Data.Repositories.Interfaces
         /// <summary>
         /// Добавляет автомобиль
         /// </summary>
-        void CreateCar(Car car);
+        void AddCar(Car car);
 
         /// <summary>
         /// Удаляет автомобиль
         /// </summary>
-        void DeleteCar(Car car);
+        void RemoveCar(Car car);
 
         /// <summary>
         /// Изменяет автомобиль
@@ -64,15 +63,12 @@ namespace AutoRepository.Data.Repositories.Interfaces
         /// <summary>
         /// Возаращает автомобиль по Id
         /// </summary>
-        /// <param name="carId"></param>
         /// <returns></returns>
         Task<Car> GetCarAsync(Guid carId);
 
         /// <summary>
         /// Возвращает автомобиль по названию и бренду
         /// </summary>
-        /// <param name="title"></param>
-        /// <param name="brandId"></param>
         /// <returns></returns>
         Task<Car> GetCarAsync(string title, Guid brandId);
 

@@ -11,6 +11,8 @@ using AutoRepository.Services.Services.Interfaces;
 using AutoRepository.Services.Services.Logic;
 using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
+using AutoRepository.Data.Storages.Logic;
+using AutoRepository.Data.Storages.Interfaces;
 
 namespace AutoRepository
 {
@@ -25,6 +27,12 @@ namespace AutoRepository
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedRedisCache(option =>
+            {
+                option.Configuration = Configuration.GetValue<string>("RedisConnectionString");
+                option.InstanceName = "auto";
+            });
+
             var dbConnectionString = Configuration["DbConnectionString"] ?? Configuration.GetConnectionString("DefaultConnection");
             services.AddEntityFrameworkNpgsql()
                 .AddDbContext<AutoRepositoryContext>(options =>
@@ -42,6 +50,7 @@ namespace AutoRepository
             
             services.AddScoped<IAutomobileRepository, AutomobileRepository>();
             services.AddScoped<IAutomobileHandler, AutomobileHandler>();
+            services.AddScoped<IAutomobileStorage, AutomobileStorage>();
 
             services.AddMvcCore()
                 .AddApiExplorer()

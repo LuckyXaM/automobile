@@ -5,6 +5,7 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - DbConnectionString=Host=repository.sql.data;Port=5432;Database=auto-db;Username=postgres;Password=postgres
+      - RedisConnectionString=redis.cache
     ports:
       - "8888:80"
 

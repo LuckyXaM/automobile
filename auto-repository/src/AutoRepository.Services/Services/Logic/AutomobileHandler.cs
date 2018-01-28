@@ -1,5 +1,6 @@
 ﻿using AutoRepository.Data.Models;
 using AutoRepository.Data.Repositories.Interfaces;
+using AutoRepository.Data.Storages.Interfaces;
 using AutoRepository.Services.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace AutoRepository.Services.Services.Logic
     {
         #region Свойства
 
-        private readonly IAutomobileRepository _automobileRepository;
+        private readonly IAutomobileStorage _automobileStorage;
 
         #endregion
 
@@ -24,10 +25,10 @@ namespace AutoRepository.Services.Services.Logic
         /// Конструктор по-умолчанию
         /// </summary>
         public AutomobileHandler(
-            IAutomobileRepository automobileRepository
+            IAutomobileStorage automobileStorage
             )
         {
-            _automobileRepository = automobileRepository;
+            _automobileStorage = automobileStorage;
         }
 
         #endregion
@@ -37,34 +38,28 @@ namespace AutoRepository.Services.Services.Logic
         /// <summary>
         /// Добавляет бренд
         /// </summary>
-        public async Task CreateBrandAsync(string title)
+        public async Task AddBrandAsync(string title)
         {
-            var mark = await _automobileRepository.GetBrandAsync(title);
-
-            if (mark == null)
+            var result = new Brand
             {
-                var brand = new Brand
-                {
-                    Title = title
-                };
+                BrandId = Guid.NewGuid(),
+                Title = title
+            };
 
-                _automobileRepository.CreateBrand(brand);
-                await _automobileRepository.UnitOfWork.SaveChangesAsync();
-            }
+            await _automobileStorage.AddBrandAsync(result);
         }
 
         /// <summary>
         /// Удаляет бренд
         /// </summary>
-        public async Task DeleteBrandAsync(Guid brandId)
+        public async Task RemoveBrandAsync(Guid brandId)
         {
             var brand = new Brand
             {
                 BrandId = brandId
             };
 
-            _automobileRepository.DeleteBrand(brand);
-            await _automobileRepository.UnitOfWork.SaveChangesAsync();
+            await _automobileStorage.RemoveBrandAsync(brand);
         }
 
         /// <summary>
@@ -78,18 +73,16 @@ namespace AutoRepository.Services.Services.Logic
                 Title = title
             };
 
-            _automobileRepository.UpdateBrand(brand);
-            await _automobileRepository.UnitOfWork.SaveChangesAsync();
+            await _automobileStorage.UpdateBrandAsync(brand);
         }
 
         /// <summary>
         /// Возаращает бренд по Id
         /// </summary>
-        /// <param name="brandId"></param>
         /// <returns></returns>
         public async Task<Brand> GetBrandAsync(Guid brandId)
         {
-            var result = await _automobileRepository.GetBrandAsync(brandId);
+            var result = await _automobileStorage.GetBrandAsync(brandId);
 
             return result;
         }
@@ -100,7 +93,7 @@ namespace AutoRepository.Services.Services.Logic
         /// <returns></returns>
         public async Task<List<Brand>> GetBrandsAsync()
         {
-            var result = await _automobileRepository.GetBrandsAsync();
+            var result = await _automobileStorage.GetBrandsAsync();
 
             return result;
         }
@@ -108,36 +101,28 @@ namespace AutoRepository.Services.Services.Logic
         /// <summary>
         /// Добавляет автомобиль
         /// </summary>
-        public async Task CreateCarAsync(string title, Guid brandId)
+        public async Task AddCarAsync(string title, Guid brandId)
         {
-            var auto = await _automobileRepository.GetCarAsync(title, brandId);
-
-            if (auto == null)
+            var car = new Car
             {
+                Title = title,
+                BrandId = brandId
+            };
 
-                var car = new Car
-                {
-                    Title = title,
-                    BrandId = brandId
-                };
-
-                _automobileRepository.CreateCar(car);
-                await _automobileRepository.UnitOfWork.SaveChangesAsync();
-            }
+            await _automobileStorage.AddCarAsync(car);
         }
 
         /// <summary>
         /// Удаляет автомобиль
         /// </summary>
-        public async Task DeleteCarAsync(Guid carId)
+        public async Task RemoveCarAsync(Guid carId)
         {
             var car = new Car
             {
                 CarId = carId
             };
-
-            _automobileRepository.DeleteCar(car);
-            await _automobileRepository.UnitOfWork.SaveChangesAsync();
+            
+            await _automobileStorage.RemoveCarAsync(car);
         }
 
         /// <summary>
@@ -145,21 +130,22 @@ namespace AutoRepository.Services.Services.Logic
         /// </summary>
         public async Task UpdateCarAsync(Guid carId, string title)
         {
-            var car = await _automobileRepository.GetCarAsync(carId);
-            car.Title = title;
+            var car = new Car
+            {
+                CarId = carId,
+                Title = title
+            };
 
-            _automobileRepository.UpdateCar(car);
-            await _automobileRepository.UnitOfWork.SaveChangesAsync();
+            await _automobileStorage.UpdateCarAsync(car);
         }
 
         /// <summary>
         /// Возаращает автомобиль по Id
         /// </summary>
-        /// <param name="carId"></param>
         /// <returns></returns>
         public async Task<Car> GetCarAsync(Guid carId)
         {
-            var result = await _automobileRepository.GetCarAsync(carId);
+            var result = await _automobileStorage.GetCarAsync(carId);
 
             return result;
         }
@@ -170,7 +156,7 @@ namespace AutoRepository.Services.Services.Logic
         /// <returns></returns>
         public async Task<List<Car>> GetCarsAsync()
         {
-            var result = await _automobileRepository.GetCarsAsync();
+            var result = await _automobileStorage.GetCarsAsync();
 
             return result;
         }
