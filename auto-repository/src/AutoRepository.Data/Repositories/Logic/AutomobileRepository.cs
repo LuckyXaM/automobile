@@ -15,6 +15,9 @@ namespace AutoRepository.Data.Repositories.Logic
     {
         #region Свойства
 
+        /// <summary>
+        /// Контекст для работы с базой данных сервиса "AutoRepository"
+        /// </summary>
         private AutoRepositoryContext _autoRepositoryContext;
 
         /// <summary>
