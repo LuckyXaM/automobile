@@ -13,6 +13,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using System.IO;
 using AutoRepository.Data.Storages.Logic;
 using AutoRepository.Data.Storages.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 
 namespace AutoRepository
 {
@@ -20,9 +21,12 @@ namespace AutoRepository
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration)
+        private IHostingEnvironment _env;
+
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            _env = env;
         }
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
@@ -59,13 +63,10 @@ namespace AutoRepository
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("automobile", new Info { Title = "Работа с автомобилями", Version = "automobile" });
-                c.IgnoreObsoleteProperties();
 
-                var xmlPath = Path.Combine("AutoRepository.xml");
+                var xmlPath = Path.Combine(_env.ContentRootPath, "AutoRepository.xml");
                 c.IncludeXmlComments(xmlPath);
-
-                // Отображение перечисляемого типа в текстовом виде
-                c.DescribeAllEnumsAsStrings();
+                c.IgnoreObsoleteProperties();
             });
 
             return services.BuildServiceProvider();
